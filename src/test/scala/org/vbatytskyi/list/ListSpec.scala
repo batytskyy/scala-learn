@@ -346,7 +346,7 @@ class ListSpec extends WordSpec with Matchers {
       "return false if searching non-Nil in Nil" in {
         List.hasSubSequence(Nil, List(1, 2, 3)) shouldBe false
       }
-      "return false if non subsequence exists" in {
+      "return false if no subsequence exists" in {
         List.hasSubSequence(List(1, 2, 3, 4, 5, 6), List(1, 2, 5)) shouldBe false
       }
       "return true for a subsequence in a start" in {
