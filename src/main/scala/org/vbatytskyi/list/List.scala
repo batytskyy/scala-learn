@@ -121,7 +121,10 @@ object List {
 
   def filterByFlatMap[A](list: List[A])(f: A => Boolean): List[A] = flatMap(list)(a => if (f(a)) List(a) else Nil)
 
-  def zipAdd[A](list1: List[A], list2: List[A]): List[A] = {
-    Nil
+  def zipAdd(list1: List[Int], list2: List[Int]): List[Int] = (list1, list2) match {
+    case (Nil, Nil) => Nil
+    case (Nil, _) => list2
+    case (_, Nil) => list1
+    case (Cons(h1, t1), Cons(h2, t2)) => Cons[Int](h1 + h2, zipAdd(t1, t2))
   }
 }
