@@ -335,5 +335,32 @@ class ListSpec extends WordSpec with Matchers {
         List.zipWith(List(1, 2, 3), List(4, 5, 6))(_ * _) shouldBe List(4, 10, 18)
       }
     }
+
+    "hasSubSequence" should {
+      "return true if searching Nil in Nil" in {
+        List.hasSubSequence[Int](Nil, Nil) shouldBe true
+      }
+      "return true if searching Nil in non-Nil" in {
+        List.hasSubSequence(List(1, 2, 3), Nil) shouldBe true
+      }
+      "return false if searching non-Nil in Nil" in {
+        List.hasSubSequence(Nil, List(1, 2, 3)) shouldBe false
+      }
+      "return false if non subsequence exists" in {
+        List.hasSubSequence(List(1, 2, 3, 4, 5, 6), List(1, 2, 5)) shouldBe false
+      }
+      "return true for a subsequence in a start" in {
+        List.hasSubSequence(List(1, 2, 3, 4, 5), List(1, 2)) shouldBe true
+      }
+      "return true for a subsequence in a middle" in {
+        List.hasSubSequence(List(1, 2, 3, 4, 5), List(2, 3, 4)) shouldBe true
+      }
+      "return true for a subsequence in a tail" in {
+        List.hasSubSequence(List(1, 2, 3, 4, 5), List(5)) shouldBe true
+      }
+      "return true for a subsequence which is the same as input" in {
+        List.hasSubSequence(List(1, 2, 3), List(1, 2, 3)) shouldBe true
+      }
+    }
   }
 }
