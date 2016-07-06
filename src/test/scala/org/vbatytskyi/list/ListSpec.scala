@@ -293,5 +293,26 @@ class ListSpec extends WordSpec with Matchers {
         List.filterByFlatMap(List(1, 10, 2, 15, 3, 16, 4))(_ < 10) shouldBe List(1, 2, 3, 4)
       }
     }
+
+    "zipAdd" should {
+      "return Nil for both Nils" in {
+        List.zipAdd(Nil, Nil) shouldBe Nil
+      }
+      "return first list if the second is Nil" in {
+        List.zipAdd(List(1, 2, 3), Nil) shouldBe List(1, 2, 3)
+      }
+      "return second list if the first is Nil" in {
+        List.zipAdd(Nil, List(1, 2, 3)) shouldBe List(1, 2, 3)
+      }
+      "return sum of corresponding elements and rest of the second list, if the first is shorter" in {
+        List.zipAdd(List(1, 2), List(4, 5, 6)) shouldBe List(5, 7, 6)
+      }
+      "return sum of corresponding elements and rest of the first list, if the second is shorter" in {
+        List.zipAdd(List(1, 2, 3), List(4, 5)) shouldBe List(5, 7, 3)
+      }
+      "return sum of corresponding elements of two lists" in {
+        List.zipAdd(List(1, 2, 3), List(4, 5, 6)) shouldBe List(5, 7, 9)
+      }
+    }
   }
 }

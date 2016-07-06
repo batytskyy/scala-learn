@@ -120,4 +120,8 @@ object List {
   def flatMap[A, B](list: List[A])(f: A => List[B]): List[B] = appendMultiple(map[A, List[B]](list)(a => f(a)))
 
   def filterByFlatMap[A](list: List[A])(f: A => Boolean): List[A] = flatMap(list)(a => if (f(a)) List(a) else Nil)
+
+  def zipAdd[A](list1: List[A], list2: List[A]): List[A] = {
+    Nil
+  }
 }
