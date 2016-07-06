@@ -137,20 +137,22 @@ object List {
 
   def hasSubSequence[A](sup: List[A], sub: List[A]): Boolean = {
 
-    def hasSubSequenceStrict(sup: List[A], sub: List[A]): Boolean = (sup, sub) match {
+    def baseCases(sup: List[A], sub: List[A]): Boolean = (sup, sub) match {
       case (Nil, Nil) => true
       case (_, Nil) => true
       case (Nil, _) => false
+    }
+
+    def hasSubSequenceStrict(sup: List[A], sub: List[A]): Boolean = (sup, sub) match {
       case (Cons(h1, t1), Cons(h2, t2)) if h1 == h2 => hasSubSequenceStrict(t1, t2)
-      case (Cons(h1, t1), _) => false
+      case (Cons(h1, t1), Cons(_, _)) => false
+      case (_, _) => baseCases(sup, sub)
     }
 
     (sup, sub) match {
-      case (Nil, Nil) => true
-      case (_, Nil) => true
-      case (Nil, _) => false
       case (Cons(h1, t1), Cons(h2, t2)) if h1 == h2 => hasSubSequenceStrict(t1, t2) || hasSubSequence(t1, sub)
-      case (Cons(h1, t1), _) => hasSubSequence(t1, sub)
+      case (Cons(h1, t1), Cons(_, _)) => hasSubSequence(t1, sub)
+      case (_, _) => baseCases(sup, sub)
     }
   }
 }
