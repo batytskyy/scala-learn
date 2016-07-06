@@ -314,5 +314,26 @@ class ListSpec extends WordSpec with Matchers {
         List.zipAdd(List(1, 2, 3), List(4, 5, 6)) shouldBe List(5, 7, 9)
       }
     }
+
+    "zipWith" should {
+      "return Nil for both Nils" in {
+        List.zipWith[Int](Nil, Nil)(_ + _) shouldBe Nil
+      }
+      "return first list if the second is Nil" in {
+        List.zipWith(List(1, 2, 3), Nil)(_ + _) shouldBe List(1, 2, 3)
+      }
+      "return second list if the first is Nil" in {
+        List.zipWith(Nil, List(1, 2, 3))(_ + _) shouldBe List(1, 2, 3)
+      }
+      "return sum of corresponding elements and rest of the second list, if the first is shorter" in {
+        List.zipWith(List(1, 2), List(4, 5, 6))(_ + _) shouldBe List(5, 7, 6)
+      }
+      "return sum of corresponding elements and rest of the first list, if the second is shorter" in {
+        List.zipWith(List(1, 2, 3), List(4, 5))(_ + _) shouldBe List(5, 7, 3)
+      }
+      "return sum of corresponding elements of two lists" in {
+        List.zipWith(List(1, 2, 3), List(4, 5, 6))(_ * _) shouldBe List(4, 10, 18)
+      }
+    }
   }
 }

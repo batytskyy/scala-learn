@@ -125,6 +125,13 @@ object List {
     case (Nil, Nil) => Nil
     case (Nil, _) => list2
     case (_, Nil) => list1
-    case (Cons(h1, t1), Cons(h2, t2)) => Cons[Int](h1 + h2, zipAdd(t1, t2))
+    case (Cons(h1, t1), Cons(h2, t2)) => Cons(h1 + h2, zipAdd(t1, t2))
+  }
+
+  def zipWith[A](list1: List[A], list2: List[A])(f: (A, A) => A): List[A] = (list1, list2) match {
+    case (Nil, Nil) => Nil
+    case (Nil, _) => list2
+    case (_, Nil) => list1
+    case (Cons(h1, t1), Cons(h2, t2)) => Cons(f(h1, h2), zipWith(t1, t2)(f))
   }
 }
