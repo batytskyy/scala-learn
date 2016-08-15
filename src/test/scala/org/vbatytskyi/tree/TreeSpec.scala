@@ -12,8 +12,8 @@ class TreeSpec extends WordSpec with Matchers {
       "compute 1" in {
         Tree.size(Leaf(100)) shouldBe 1
       }
-      "compute 3" in {
-        Tree.size(Branch(Leaf(100), Branch(Leaf(5), Nil)))
+      "compute 4" in {
+        Tree.size(Branch(Leaf(100), Branch(Leaf(5), Nil))) shouldBe 4
       }
     }
 
